@@ -6,10 +6,19 @@ const mongoose = require('mongoose');
 const app = express();
 const server = http.createServer(app);
 
+const corsOptions = {
+  origin: ['https://waifuai-olive.vercel.app', "localhost:3000"],  // Replace with your Vercel app URL
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type'],
+  credentials: true, // Allow cookies if needed
+};
+
+app.use(cors(corsOptions));
+
 // Configure CORS to allow requests from localhost:3000
 const io = new Server(server, {
   cors: {
-    origin: ["https://waifuai-olive.vercel.app/", "localhost:3000"],  // Allow only requests from this origin
+    origin: ["https://waifuai-olive.vercel.app", "localhost:3000"],  // Allow only requests from this origin
     methods: ["GET", "POST"],        // Specify allowed HTTP methods
     allowedHeaders: ["Content-Type"], // Allowed headers
   }
