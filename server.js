@@ -1,6 +1,3 @@
-
-
-
 const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
@@ -38,7 +35,7 @@ const server = http.createServer(app);
 
 
 const corsOptions = {
-  origin: ['https://waifuai-olive.vercel.app', "http://localhost:3000"],  // Replace with your Vercel app URL
+  origin: ['https://waifuai-olive.vercel.app', "http://localhost:3000", "https://www.asuna.chat"],  // Replace with your Vercel app URL
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type'],
   credentials: true, // Allow cookies if needed
@@ -49,13 +46,13 @@ app.use(cors(corsOptions));
 // Configure CORS to allow requests from localhost:3000
 const io = new Server(server, {
   cors: {
-    origin: ["https://waifuai-olive.vercel.app", "http://localhost:3000"],  // Allow only requests from this origin
+    origin: ["https://waifuai-olive.vercel.app", "http://localhost:3000", "https://www.asuna.chat"],  // Allow only requests from this origin
     methods: ["GET", "POST"],        // Specify allowed HTTP methods
     allowedHeaders: ["Content-Type"], // Allowed headers
   }
 });
 
-const mongoURI = process.env.MONGO_URI
+const mongoURI = "mongodb+srv://micacao15:O22112003mar@email.0vna6wk.mongodb.net/?retryWrites=true&w=majority&appName=email" //process.env.MONGO_URI
 
 // Connect to MongoDB
 mongoose.connect(mongoURI, {
