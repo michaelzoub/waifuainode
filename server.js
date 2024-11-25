@@ -52,7 +52,7 @@ const io = new Server(server, {
   }
 });
 
-const mongoURI = "mongodb+srv://micacao15:O22112003mar@email.0vna6wk.mongodb.net/?retryWrites=true&w=majority&appName=email" //process.env.MONGO_URI
+const mongoURI = process.env.MONGO_URI
 
 // Connect to MongoDB
 mongoose.connect(mongoURI, {
