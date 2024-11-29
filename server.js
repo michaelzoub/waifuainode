@@ -88,7 +88,6 @@ const messageSchema = new mongoose.Schema({
 const Message = mongoose.model("memecoin.delete after sunday", messageSchema);
 
 io.on("connection", (socket) => {
-  console.log("A user connected");
 
   // Save incoming messages
   socket.on("message", async (msg) => {
