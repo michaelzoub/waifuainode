@@ -82,13 +82,13 @@ const messageSchema = new mongoose.Schema({
 
 const Message = mongoose.model("memecoin.delete after sunday", messageSchema)
 
-const activeConnections = new Set()
+let viewerCount = 0
 
 io.on("connection", (socket) => {
 
-  activeConnections.add(socket.id)
+  viewerCount++
 
-  io.emit("viewerCount", activeConnections)
+  io.emit("viewerCount", viewerCount)
 
   socket.on("message", async (msg) => {
     try {
@@ -118,7 +118,7 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     console.log("User disconnected")
-    activeConnections--
+    viewerCount--
   });
 });
 
