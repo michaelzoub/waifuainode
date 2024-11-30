@@ -80,7 +80,6 @@ const messageSchema = new mongoose.Schema({
     }}
 })
 
-// Define the Message model
 const Message = mongoose.model("memecoin.delete after sunday", messageSchema)
 
 let viewerCount = 0
@@ -93,21 +92,29 @@ io.on("connection", (socket) => {
 
   socket.on("message", async (msg) => {
     try {
-      await Message.create(msg);  
-      io.emit("message", msg);     
-    } catch (err) {
-      console.error("Error saving message:", err);
+      await Message.create(msg)
+      io.emit("message", msg)     
+    } catch (error) {
+      console.error("Error saving message:", error)
     }
-  });
+  })
 
   socket.on("loadMessages", async () => {
     try {
       const messages = await Message.find(); 
       socket.emit("loadMessages", messages); 
-    } catch (err) {
-      console.error("Error loading messages:", err);
+    } catch (error) {
+      console.error("Error loading messages:", error);
     }
-  });
+  })
+
+  socket.on("username", async (sub) => {
+    try {
+      io.emit("username", sub)
+    } catch (error) {
+      console.error("Error emitting sub: ", error)
+    }
+  })
 
   socket.on("disconnect", () => {
     console.log("User disconnected")
