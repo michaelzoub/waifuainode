@@ -88,7 +88,7 @@ io.on("connection", (socket) => {
 
   activeConnections.add(socket.id)
 
-  io.emit("viewerCount", viewerCount)
+  io.emit("viewerCount", activeConnections)
 
   socket.on("message", async (msg) => {
     try {
@@ -118,7 +118,7 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     console.log("User disconnected")
-    viewerCount--
+    activeConnections--
   });
 });
 
