@@ -82,11 +82,11 @@ const messageSchema = new mongoose.Schema({
 
 const Message = mongoose.model("memecoin.delete after sunday", messageSchema)
 
-let viewerCount = 0
+const activeConnections = new Set()
 
 io.on("connection", (socket) => {
 
-  viewerCount++
+  activeConnections.add(socket.id)
 
   io.emit("viewerCount", viewerCount)
 
@@ -101,7 +101,7 @@ io.on("connection", (socket) => {
 
   socket.on("loadMessages", async () => {
     try {
-      const messages = await Message.find(); 
+      const messages = await Message.find().sort({ timestamp: -1 }).limit(50)
       socket.emit("loadMessages", messages); 
     } catch (error) {
       console.error("Error loading messages:", error);
