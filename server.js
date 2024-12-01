@@ -101,7 +101,7 @@ io.on("connection", (socket) => {
 
   socket.on("loadMessages", async () => {
     try {
-      const messages = await Message.find().sort({ timestamp: -1 }).limit(50)
+      const messages = await Message.find()
       socket.emit("loadMessages", messages); 
     } catch (error) {
       console.error("Error loading messages:", error);
