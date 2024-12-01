@@ -78,7 +78,11 @@ const messageSchema = new mongoose.Schema({
     default: function() {
       return neonColors[colorNumber]
     }},
-    type: String
+    type: String,
+    upvotes: {
+    type: Number,
+    default: 0 
+  }
 })
 
 const Message = mongoose.model("memecoin.delete after sunday", messageSchema)
@@ -114,6 +118,14 @@ io.on("connection", (socket) => {
       io.emit("username", sub)
     } catch (error) {
       console.error("Error emitting sub: ", error)
+    }
+  })
+
+  socket.on("upvote", async (upvote) => {
+    try {
+      io.emit("upvote", upvote)
+    } catch (error) {
+      console.error("Can't like ", error)
     }
   })
 
