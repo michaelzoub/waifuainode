@@ -1,8 +1,8 @@
-const express = require("express");
-const http = require("http");
-const { Server } = require("socket.io");
-const mongoose = require('mongoose');
-const cors = require('cors');
+const express = require("express")
+const http = require("http")
+const { Server } = require("socket.io")
+const mongoose = require('mongoose')
+const cors = require('cors')
 
 const app = express();
 const server = http.createServer(app);
@@ -124,6 +124,14 @@ io.on("connection", (socket) => {
   socket.on("upvote", async (upvote) => {
     try {
       io.emit("upvote", upvote)
+    } catch (error) {
+      console.error("Can't like ", error)
+    }
+  })
+
+  socket.on("downvote", async (downvote) => {
+    try {
+      io.emit("downvote", downvote)
     } catch (error) {
       console.error("Can't like ", error)
     }
