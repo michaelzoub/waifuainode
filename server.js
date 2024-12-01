@@ -97,8 +97,8 @@ io.on("connection", (socket) => {
 
   socket.on("message", async (msg) => {
     try {
-      await Message.create(msg)
-      io.emit("message", msg)     
+      const newMessage = await Message.create(msg)
+      io.emit("message", newMessage)     
     } catch (error) {
       console.error("Error saving message:", error)
     }
