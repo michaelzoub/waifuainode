@@ -77,7 +77,8 @@ const messageSchema = new mongoose.Schema({
   color: {type: String, 
     default: function() {
       return neonColors[colorNumber]
-    }}
+    }},
+    type: String
 })
 
 const Message = mongoose.model("memecoin.delete after sunday", messageSchema)
@@ -101,7 +102,7 @@ io.on("connection", (socket) => {
 
   socket.on("loadMessages", async () => {
     try {
-      const messages = await Message.find()
+      const messages = await Message.find().sort({ timestamp: -1 }).limit(50)
       socket.emit("loadMessages", messages); 
     } catch (error) {
       console.error("Error loading messages:", error);
