@@ -137,6 +137,14 @@ io.on("connection", (socket) => {
     }
   })
 
+  socket.on("asuna", async (asuna) => {
+    try {
+      io.emit("asuna", asuna)
+    } catch(error) {
+      console.error("Can't chat with live audio: ", error)
+    }
+  })
+
   socket.on("disconnect", () => {
     console.log("User disconnected")
     viewerCount--
