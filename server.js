@@ -139,7 +139,7 @@ io.on("connection", (socket) => {
 
   socket.on("asuna", async (asuna) => {
     try {
-      io.emit("asuna", asuna)
+      socket.broadcast.emit("asuna", asuna)
     } catch(error) {
       console.error("Can't chat with live audio: ", error)
     }
